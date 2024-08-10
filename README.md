@@ -2,6 +2,8 @@
 
 Este projeto implementa um sistema de envio de mensagens privadas para trabalhos específicos (como médicos e policiais) no RedM utilizando o framework VORP.
 
+https://streamable.com/ny7nhs
+
 ## Funcionalidades
 
 - **Comando /msg:** Permite que jogadores enviem mensagens privadas para outros jogadores do mesmo trabalho (médico ou policial).
