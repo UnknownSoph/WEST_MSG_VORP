@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            display: none; /* Esconder o input inicialmente */
+        }
+
+        .input-container {
+            background-image: url('./images/background.png');
+            background-size: cover;
+            padding: 20px;
+            height: 350px;
+            width: 500px;
+            text-align: center;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+        }
+
+        #placeholder {
+            font-size: 18px;
+            color: #000;
+            margin-top: 50px;
+            margin-left: 4px;
+        }
+        #selo {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-container">
+        <p>
+            <h1 id="placeholder"></h1>
+        </p>
+        <p>
+            <input type="text" id="inputMessage" placeholder="TELEGRAMA">
+        </p>
+        <p>
+            <button onclick="submitMessage()">Enviar</button>
+            <button onclick="closeInput()">Cancelar</button>
+        </p>
+        <img id="selo" src="./images/icon.png">
+    </div>
+
+    <script>
+        function submitMessage() {
+            const message = document.getElementById('inputMessage').value;
+            fetch(`https://${GetParentResourceName()}/submitInput`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify({
+                    message: message,
+                })
+            }).then(resp => resp.json()).then(resp => {
+                console.log(resp);
+            });
+            closeInput();  // Fechar a caixa após o envio
+        }
+
+        function closeInput() {
+            fetch(`https://${GetParentResourceName()}/closeInput`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                }
+            }).then(resp => resp.json()).then(resp => {
+                console.log(resp);
+            });
+            document.body.style.display = 'none'; // Esconder a caixa quando fechar
+        }
+
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'openInput') {
+                document.getElementById('placeholder').innerText = event.data.placeholder;
+                document.getElementById('inputMessage').value = '';
+                document.body.style.display = 'flex'; // Mostrar a caixa quando chamada
+            }
+        });
+    </script>
+</body>
+</html>
