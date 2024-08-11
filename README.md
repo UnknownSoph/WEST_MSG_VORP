@@ -54,3 +54,7 @@ Sinta-se à vontade para contribuir com melhorias, sugestões ou correções par
 ## Licença
 
 Este projeto é de código aberto sob a licença MIT.
+
+## Autor
+
+Criado por **uira182**.
