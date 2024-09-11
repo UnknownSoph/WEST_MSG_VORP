@@ -1,60 +1,60 @@
-# Sistema de Mensagens Privadas para RedM
+# Private Messaging System for RedM
 
-Este projeto implementa um sistema de envio de mensagens privadas para trabalhos específicos (como médicos e policiais) no RedM utilizando o framework VORP.
+This project implements a private messaging system for specific jobs (such as doctors and police officers) in RedM using the VORP framework.
 
 https://streamable.com/ny7nhs
 
-## Funcionalidades
+## Features
 
-- **Comando /msg:** Permite que jogadores enviem mensagens privadas para outros jogadores do mesmo trabalho (médico ou policial).
-- **Animações de Interação:** Quando o jogador abre o input para escrever a mensagem, uma animação de escrita é reproduzida.
-- **Sistema de Autorização:** Apenas jogadores com os trabalhos "médico" ou "policial" podem utilizar o comando /msg.
+- **Command /msg:** Allows players to send private messages to other players in the same job (doctor or police officer).
+- **Interaction Animations:** When the player opens the input to write the message, a writing animation is played.
+- **Authorization System:** Only players with the "doctor" or "police" jobs can use the /msg command.
 
-## Arquivos Principais
+## Main Files
 
 ### 1. `cl_msg.lua`
-Este arquivo contém toda a lógica do lado do cliente, responsável por:
+This file contains all the client-side logic, responsible for:
 
-- Registrar o comando `/msg` que abre a interface de input.
-- Gerenciar a interface NUI para captura de mensagens.
-- Iniciar e parar animações relacionadas à interação do jogador com o sistema de mensagens.
+- Register the `/msg` command that opens the input interface.
+- Manage the NUI interface for message capture.
+- Start and stop animations related to the player's interaction with the messaging system.
 
 ### 2. `sv_msg.lua`
-Este arquivo contém a lógica do lado do servidor, responsável por:
+This file contains the server-side logic responsible for:
 
-- Verificar o trabalho do jogador ao tentar utilizar o comando `/msg`.
-- Enviar a mensagem para todos os jogadores que possuem o mesmo trabalho.
-- Configurar as cores e prefixos das mensagens baseadas no trabalho do jogador (médico ou policial).
+- Check the player's work when trying to use the `/msg` command.
+- Send the message to all players who have the same job.
+- Configure message colors and prefixes based on the player's job (doctor or police officer).
 
 ### 3. `index.html`
-Arquivo HTML que define a interface do input de mensagens. Este arquivo é carregado como parte do NUI e é exibido quando o jogador abre o input para escrever a mensagem.
+HTML file that defines the message input interface. This file is loaded as part of the NUI and is displayed when the player opens the input to write the message.
 
 ### 4. `fxmanifest.lua`
-Arquivo de manifesto que define as dependências e os scripts utilizados no recurso. É necessário para que o RedM reconheça e carregue corretamente os scripts e arquivos do recurso.
+Manifest file that defines the dependencies and scripts used in the resource. It is necessary for RedM to correctly recognize and load resource scripts and files.
 
-## Instalação
+## Installation
 
-1. **Copiar os Arquivos:** Copie todos os arquivos do projeto para a pasta de recursos do seu servidor RedM.
-2. **Configurar `fxmanifest.lua`:** Certifique-se de que o `fxmanifest.lua` está configurado corretamente para carregar os scripts e arquivos necessários.
-3. **Iniciar o Recurso:** Adicione o recurso à lista de recursos que são iniciados com o servidor (`server.cfg`).
+1. **Copy the Files:** Copy all project files to the resources folder on your RedM server.
+2. **Configure `fxmanifest.lua`:** Make sure `fxmanifest.lua` is configured correctly to load the required scripts and files.
+3. **Start Resource:** Add the resource to the list of resources that are started with the server (`server.cfg`).
 
-## Utilização
+## Usage
 
-- **/msg:** Jogadores que possuem o trabalho de "médico" ou "policial" podem utilizar o comando `/msg` para enviar mensagens privadas para outros jogadores do mesmo trabalho.
+- **/msg:** Players who have the "doctor" or "police" job can use the `/msg` command to send private messages to other players with the same job.
 
-## Depuração
+## Debugging
 
-- **Logs:** O código contém várias linhas de `print` para auxiliar na depuração, exibindo informações no console sobre as ações realizadas e eventos disparados.
-- **Erros Comuns:** Se as mensagens não estiverem sendo exibidas no chat, verifique se o evento `msg:sendMessage` está sendo corretamente disparado e se a interface NUI está corretamente carregada.
+- **Logs:** The code contains several `print` lines to aid debugging, displaying information in the console about actions performed and events triggered.
+- **Common Errors:** If messages are not being displayed in the chat, check if the `msg:sendMessage` event is being correctly fired and if the NUI interface is correctly loaded.
 
-## Contribuição
+## Contribution
 
-Sinta-se à vontade para contribuir com melhorias, sugestões ou correções para este projeto. Para isso, faça um fork do repositório e envie um pull request com as suas modificações.
+Feel free to contribute improvements, suggestions or corrections to this project. To do this, fork the repository and send a pull request with your modifications.
 
-## Licença
+## License
 
-Este projeto é de código aberto sob a licença MIT.
+This project is open source under the MIT license.
 
-## Autor
+## Author
 
-Criado por **uira182**.
+Created by **uira182**.
