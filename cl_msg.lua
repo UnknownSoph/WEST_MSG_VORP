@@ -1,60 +1,60 @@
 local isInputActive = false
 
 RegisterCommand('msg', function()
-    print("Cliente: Comando /msg chamado") -- Depuração: confirma que o comando foi chamado no cliente
+    print("Client: /msg command called") -- Debug: confirms that the command was called on the client
     TriggerServerEvent('msg:checkJob')
 end, false)
 
 RegisterNetEvent('msg:openInput')
 AddEventHandler('msg:openInput', function()
     if not isInputActive then
-        print("Cliente: Abrindo NUI para input") -- Depuração: confirma que o input será aberto
+        print("Client: Opening NUI for input") -- Debug: confirms that the input will be opened
         
-        SetNuiFocus(false, false) -- Remove o foco do NUI
-        ClearPedTasksImmediately(PlayerPedId()) -- Para a animação 
+        SetNuiFocus(false, false) -- Remove focus from NUI
+        ClearPedTasksImmediately(PlayerPedId()) --For animation
         
-        -- Iniciar a animação de escrita
+        -- Start writing animation
         local playerPed = PlayerPedId()
         RequestAnimDict("amb_work@world_human_write_notebook@male_a@base")
         while not HasAnimDictLoaded("amb_work@world_human_write_notebook@male_a@base") do
             Citizen.Wait(100)
         end
-        print("Cliente: Iniciando animação de escrita") -- Depuração: confirma que a animação está sendo iniciada
+        print("Client: Starting writing animation") -- Debug: confirms that the animation is starting
         TaskPlayAnim(playerPed, "amb_work@world_human_write_notebook@male_a@base", "base", 8.0, -8.0, -1, 49, 0, false, false, false)
         
-        SetNuiFocus(true, true) -- Ativa o foco no NUI para permitir a interação
+        SetNuiFocus(true, true) -- Enables focus on NUI to enable interaction
         SendNUIMessage({
             type = 'openInput',
-            placeholder = 'Escreva sua mensagem',
+            placeholder = 'Write your message',
         })
         isInputActive = true
     else
-        print("Cliente: Input já está ativo") -- Depuração: verifica se o input já está ativo
+        print("Client: Input is already active") -- Debugging: checks if the input is already active
     end
 end)
 
 RegisterNUICallback('submitInput', function(data, cb)
     local message = data.message
-    print("Cliente: Mensagem enviada: ", message) -- Depuração: confirma que a mensagem foi enviada
+    print("Client: Message sent: ", message) -- Debug: confirms that the message was sent
     if message and message ~= '' then
-        TriggerServerEvent('msg:sendMessage', message) -- Envia a mensagem para o servidor
+        TriggerServerEvent('msg:sendMessage', message) -- Send the message to the server
     end
-    SetNuiFocus(false, false) -- Remove o foco do NUI após o envio
-    ClearPedTasksImmediately(PlayerPedId()) -- Para a animação imediatamente
-    print("Cliente: Animação cancelada após enviar a mensagem") -- Depuração: confirma que a animação foi cancelada
+    SetNuiFocus(false, false) -- Remove focus from NUI after submission
+    ClearPedTasksImmediately(PlayerPedId()) -- Stops animation immediately
+    print("Client: Animation canceled after sending message") -- Debug: confirms that the animation has been canceled
     isInputActive = false
     cb('ok')
 end)
 
 RegisterNUICallback('closeInput', function(data, cb)
-    print("Cliente: Input fechado") -- Depuração: confirma que o input foi fechado
-    SetNuiFocus(false, false) -- Remove o foco do NUI
-    ClearPedTasksImmediately(PlayerPedId()) -- Para a animação imediatamente
-    print("Cliente: Animação cancelada após fechar o input") -- Depuração: confirma que a animação foi cancelada
+    print("Client: Input closed") -- Debug: confirms that the input has been closed
+    SetNuiFocus(false, false) -- Remove focus from NUI
+    ClearPedTasksImmediately(PlayerPedId()) -- Stops animation immediately
+    print("Client: Animation canceled after closing input") -- Debug: confirms that the animation has been canceled
     isInputActive = false
     cb('ok')
 end)
 
 Citizen.CreateThread(function()
-    TriggerEvent('chat:addSuggestion', '/msg', 'Envia uma mensagem privada ao grupo de médicos ou policiais.')
+    TriggerEvent('chat:addSuggestion', '/msg', 'Send a private message to the group of doctors or police.')
 end)
