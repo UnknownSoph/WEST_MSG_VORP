@@ -3,26 +3,26 @@ local VORP = exports.vorp_core:vorpAPI()
 RegisterServerEvent('msg:checkJob')
 AddEventHandler('msg:checkJob', function()
     local src = source
-    print("Comando /msg foi chamado pelo jogador:", src) -- Depuração
+    print("Command /msg was called by the player:", src) -- Debugging
 
-    -- Tenta pegar o trabalho do jogador
+-- Try to take the player's job
     local Character = VORP.getCharacter(src)
     if Character then
-        local job = Character.job -- O trabalho do personagem
-        print("Job do jogador:", job) -- Depuração
+        local job = Character.job -- Character work
+        print("Player Job:", job) -- Debugging
 
         if job == 'medico' or job == 'policial' then
             TriggerClientEvent('msg:openInput', src)
-            print("Abrindo input para o jogador:", src) -- Depuração
+            print("Opening input for the player:", src) -- Debugging
         else
             TriggerClientEvent('chat:addMessage', src, {
                 color = { 255, 0, 0 },
                 multiline = true,
-                args = { "Sistema", "Você não tem permissão para usar este comando." }
+                args = { "System", "You do not have permission to use this command." }
             })
         end
     else
-        print("Erro ao recuperar o personagem do jogador") -- Depuração
+        print("Error recovering player character") -- Debugging
     end
 end)
 
@@ -36,14 +36,14 @@ AddEventHandler('msg:sendMessage', function(message)
         if Character then
             local job = Character.job
             local jobPrefix = ""
-            local color = { 255, 255, 255 } -- Cor padrão, branco
+            local color = { 255, 255, 255 } -- Standard color, white
 
             if job == 'medico' then
                 jobPrefix = "[Medico] "
-                color = { 255, 0, 0 } -- Vermelho para médicos
+                color = { 255, 0, 0 } -- Red for doctors
             elseif job == 'policial' then
                 jobPrefix = "[Cavalaria] "
-                color = { 0, 0, 255 } -- Azul para policiais
+                color = { 0, 0, 255 } -- Blue for police officers
             end
 
             if jobPrefix ~= "" then
