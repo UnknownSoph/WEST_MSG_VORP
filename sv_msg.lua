@@ -32,7 +32,7 @@ AddEventHandler('msg:sendMessage', function(message)
     local players = GetPlayers()
 
     for _, playerId in ipairs(players) do
-        local Character = VORP.getCharacter(playerId)
+        local character = user.getUsedCharacter(playerId)
         if Character then
             local job = Character.job
             local jobPrefix = ""
