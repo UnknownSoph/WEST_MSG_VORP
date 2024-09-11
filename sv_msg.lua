@@ -1,12 +1,12 @@
-local VORP = exports.vorp_core:vorpAPI()
+local VORPcore = exports.vorp_core:GetCore()
 
 RegisterServerEvent('msg:checkJob')
 AddEventHandler('msg:checkJob', function()
-    local src = source
+    local userSource = User.source
     print("Command /msg was called by the player:", src) -- Debugging
 
 -- Try to take the player's job
-    local Character = VORP.getCharacter(src)
+    local character = user.getUsedCharacter(src)
     if Character then
         local job = Character.job -- Character work
         print("Player Job:", job) -- Debugging
