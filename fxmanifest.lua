@@ -1,5 +1,5 @@
 fx_version "adamant"
-games {"gta5", "rdr3"}
+games "rdr3"
 
 author 'uira182'
 description 'This project implements a private messaging system for specific jobs (such as doctors and police officers) in RedM using the VORP framework.'
